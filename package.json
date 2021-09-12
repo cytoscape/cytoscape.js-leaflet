@@ -2,7 +2,7 @@
   "name": "cytoscape-leaf",
   "version": "1.0.1",
   "description": "A Cytoscape.js extension for Leaflet.js",
-  "main": "cytoscape-leaflet.js",
+  "main": "cytoscape-leaf.js",
   "author": "Cytoscape",
   "scripts": {
     "postpublish": "run-s gh-pages",

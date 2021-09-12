@@ -16,10 +16,10 @@ A Cytoscape.js extension for integrating [Leaflet.js](https://leafletjs.com) ([d
 
 ## Usage instructions
 
-**Note that, aside from the ordinary JS imports, you must include `leaflet.css` and `cytoscape-leaflet.css` in order for the map to display properly.**
+**Note that, aside from the ordinary JS imports, you must include `leaflet.css` and `cytoscape-leaf.css` in order for the map to display properly.**
 
 Download the library:
- * via npm: `npm install cytoscape-leaflet`,
+ * via npm: `npm install cytoscape-leaf`,
  * via direct download in the repository (probably from a tag).
 
 Import the library as appropriate for your project:
@@ -102,7 +102,7 @@ When in edit mode, the user is unable to zoom or pan -- the viewport is static. 
 ## Build targets
 
 * `npm run test` : Run Mocha tests in `./test`
-* `npm run build` : Build `./src/**` into `cytoscape-leaflet.js`
+* `npm run build` : Build `./src/**` into `cytoscape-leaf.js`
 * `npm run watch` : Automatically build on changes with live reloading (N.b. you must already have an HTTP server running)
 * `npm run dev` : Automatically build on changes with live reloading with webpack dev server
 * `npm run lint` : Run eslint on the source
