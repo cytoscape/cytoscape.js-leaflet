@@ -65,7 +65,7 @@ const someNodeJson = {
 };
 ```
 
-Node positions are automatically updated when the viewport is modified (i.e. via zoom and/or pan) to correspond to their specified gepgraphic coordinates.
+Node positions are automatically updated when the viewport is modified (i.e. via zoom and/or pan) to correspond to their specified geographic coordinates.
 
 ### Instance creation
 
@@ -88,7 +88,7 @@ The graph map has an interaction mode.  It can either be in pan mode or edit mod
 
 When in pan mode, the user can zoom and pan about the map -- changing the viewport.  In pan mode, graph elements are non-interactive.  When the user manipulates the viewport in pan mode, the `leaflet-viewport` is applied to the elements.  This can be used to create a peek feature:  When the user is panning and zooming, the elements are faded out so that the user can see the street names underneath the elements.
 
-When in edit mode, the user is unable to zoom or pan -- the viewport is static.  In edit mode, graph elements are interactive (e.g. edges can be clicked and nodes can be dragged).  The mode is toggled for the user when he or she presses the shift key, the command key, or the alt key.
+When in edit mode, the user is unable to zoom or pan -- the viewport is static.  In edit mode, graph elements are interactive (e.g. edges can be clicked and nodes can be dragged).  The mode is toggled for the user when he or she presses the control (CTRL) key.
 
 - `leaf.enablePanMode()` : Enables pan mode, disables edit mode
 - `leaf.enableEditMode()` : Enabled edit mode, disables pan mode
