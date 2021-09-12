@@ -1,7 +1,7 @@
 cytoscape-leaf
 ================================================================================
 
-
+[![DOI](https://zenodo.org/badge/405766955.svg)](https://zenodo.org/badge/latestdoi/405766955)
 
 ## Description
 
