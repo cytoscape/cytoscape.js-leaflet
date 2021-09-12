@@ -1,6 +1,6 @@
 {
   "name": "cytoscape-leaf",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A Cytoscape.js extension for Leaflet.js",
   "main": "cytoscape-leaf.js",
   "author": "Cytoscape",
