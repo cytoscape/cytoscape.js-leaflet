@@ -1,4 +1,4 @@
-cytoscape-leaflet
+cytoscape-leaf
 ================================================================================
 
 
@@ -28,7 +28,7 @@ ES import:
 
 ```js
 import cytoscape from 'cytoscape';
-import leaflet from 'cytoscape-leaflet';
+import leaflet from 'cytoscape-leaf';
 
 cytoscape.use( leaflet );
 ```
@@ -37,7 +37,7 @@ CommonJS require:
 
 ```js
 let cytoscape = require('cytoscape');
-let leaflet = require('cytoscape-leaflet');
+let leaflet = require('cytoscape-leaf');
 
 cytoscape.use( leaflet ); // register extension
 ```
@@ -45,7 +45,7 @@ cytoscape.use( leaflet ); // register extension
 AMD:
 
 ```js
-require(['cytoscape', 'cytoscape-leaflet'], function( cytoscape, leaflet ){
+require(['cytoscape', 'cytoscape-leaf'], function( cytoscape, leaflet ){
   leaflet( cytoscape ); // register extension
 });
 ```
@@ -77,10 +77,10 @@ const options = {
   container: document.getElementById('cy-leaflet')
 };
 
-const cyLeaflet = cy.leaflet(options);
+const leaf = cy.leaflet(options);
 ```
 
-The Leaflet `map` instance can be accessed via `cyLeaflet.map`.  The ordinary [Leaflet Map API](https://leafletjs.com/reference-1.7.1.html) may be used on the `map` instance.
+The Leaflet `map` instance can be accessed via `leaf.map`.  The ordinary [Leaflet Map API](https://leafletjs.com/reference-1.7.1.html) may be used on the `map` instance.
 
 ### Interaction mode
 
@@ -90,14 +90,14 @@ When in pan mode, the user can zoom and pan about the map -- changing the viewpo
 
 When in edit mode, the user is unable to zoom or pan -- the viewport is static.  In edit mode, graph elements are interactive (e.g. edges can be clicked and nodes can be dragged).  The mode is toggled for the user when he or she presses the shift key, the command key, or the alt key.
 
-- `cyLeaflet.enablePanMode()` : Enables pan mode, disables edit mode
-- `cyLeaflet.enableEditMode()` : Enabled edit mode, disables pan mode
+- `leaf.enablePanMode()` : Enables pan mode, disables edit mode
+- `leaf.enableEditMode()` : Enabled edit mode, disables pan mode
 
 ### Other
 
-- `cyLeaflet.fit()` : Fit the map to the nodes
-- `cyLeaflet.defaultTileLayer` : The default tile layer (which can be removed via `cyLeaflet.map.removeLayer(cyLeaflet.defaultTileLayer)`)
-- `cyLeaflet.destroy()` : Destroys the map
+- `leaf.fit()` : Fit the map to the nodes
+- `leaf.defaultTileLayer` : The default tile layer (which can be removed via `leaf.map.removeLayer(leaf.defaultTileLayer)`)
+- `leaf.destroy()` : Destroys the map
 
 ## Build targets
 
