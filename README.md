@@ -80,7 +80,7 @@ const options = {
 const leaf = cy.leaflet(options);
 ```
 
-The Leaflet `map` instance can be accessed via `leaf.map`.  The ordinary [Leaflet Map API](https://leafletjs.com/reference-1.7.1.html) may be used on the `map` instance.
+The Leaflet `map` instance can be accessed via `leaf.map`.  The ordinary [Leaflet Map API](https://leafletjs.com/reference-1.7.1.html) may be used on the `map` instance.  Additionally, the `L` static Leaflet API can be accessed via `leaf.L` -- though you may alternatively `import L` as normal.
 
 ### Interaction mode
 
