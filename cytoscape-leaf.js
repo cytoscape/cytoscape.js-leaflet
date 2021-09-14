@@ -158,6 +158,7 @@ var CytoscapeLeaflet = function () {
 
     this.cy = cy;
     this.options = assign({}, defaults, options);
+    this.L = L;
 
     this.createMap();
     this.createToggleControl();
