@@ -87,18 +87,18 @@ class CytoscapeLeaflet {
   }
 
   configureCy() {
-    this.orgZoomEnabled = this.cy.zoomingEnabled();
-    this.orgPanningEnabled = this.cy.panningEnabled();
+    this.orgZoomEnabled = this.cy.userZoomingEnabled();
+    this.orgPanningEnabled = this.cy.userPanningEnabled();
 
-    this.cy.zoomingEnabled(false);
-    this.cy.panningEnabled(false);
+    this.cy.userZoomingEnabled(false);
+    this.cy.userPanningEnabled(false);
 
     this.cy.container().style.pointerEvents = 'none';
   }
 
   resetCyConfig() {
-    this.cy.zoomingEnabled(this.orgZoomEnabled);
-    this.cy.panningEnabled(this.orgPanningEnabled);
+    this.cy.userZoomingEnabled(this.orgZoomEnabled);
+    this.cy.userPanningEnabled(this.orgPanningEnabled);
 
     this.cy.container().style.pointerEvents = '';
   }
