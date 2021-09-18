@@ -141,17 +141,6 @@ var defaults = __webpack_require__(4);
 __webpack_require__(6);
 var L = __webpack_require__(0);
 
-// prop names, uses leaflet names
-var LAT = 'lat';
-var LNG = 'lng';
-
-var getNodeLatLng = function getNodeLatLng(n) {
-  var lat = n.data(LAT);
-  var lng = n.data(LNG);
-
-  return L.latLng(lat, lng);
-};
-
 var CytoscapeLeaflet = function () {
   function CytoscapeLeaflet(cy, options) {
     _classCallCheck(this, CytoscapeLeaflet);
@@ -175,6 +164,14 @@ var CytoscapeLeaflet = function () {
       this.destroyToggleControl();
       this.resetCyConfig();
       this.removeListeners();
+    }
+  }, {
+    key: 'getNodeLatLng',
+    value: function getNodeLatLng(n) {
+      var lat = this.options.latitude(n);
+      var lng = this.options.longitude(n);
+
+      return L.latLng(lat, lng);
     }
   }, {
     key: 'createMap',
@@ -350,7 +347,7 @@ var CytoscapeLeaflet = function () {
   }, {
     key: 'setNodePosition',
     value: function setNodePosition(node) {
-      var latlng = getNodeLatLng(node);
+      var latlng = this.getNodeLatLng(node);
       var pt = this.map.latLngToContainerPoint(latlng);
       var x = pt.x,
           y = pt.y;
@@ -438,12 +435,17 @@ var CytoscapeLeaflet = function () {
   }, {
     key: 'fit',
     value: function fit() {
+      var _this3 = this;
+
       var cy = this.cy,
           map = this.map;
 
+      var getGeo = function getGeo(n) {
+        return _this3.getNodeLatLng(n);
+      };
 
       if (cy.nodes().nonempty()) {
-        var bounds = L.latLngBounds(cy.nodes().map(getNodeLatLng));
+        var bounds = L.latLngBounds(cy.nodes().map(getGeo));
 
         map.fitBounds(bounds, { padding: [50, 50] });
       }
@@ -463,8 +465,13 @@ module.exports = CytoscapeLeaflet;
 
 
 module.exports = {
-  // TODO defaults
-  container: undefined // the container in which the map is put
+  container: undefined, // the container in which the map is put
+  latitude: function latitude(node) {
+    return node.data('lat');
+  }, // get latitude field, lat is leaflet convention
+  longitude: function longitude(node) {
+    return node.data('lng');
+  } // get longitude field, lng is leaflet convention
 };
 
 /***/ }),
