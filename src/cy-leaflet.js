@@ -4,17 +4,6 @@ const defaults = require('./defaults');
 require('leaflet-providers');
 const L = require('leaflet');
 
-// prop names, uses leaflet names
-const LAT = 'lat';
-const LNG = 'lng';
-
-const getNodeLatLng = n => {
-  const lat = n.data(LAT);
-  const lng = n.data(LNG);
-
-  return L.latLng(lat, lng);
-};
-
 class CytoscapeLeaflet {
   constructor(cy, options) {
     this.cy = cy;
@@ -34,6 +23,13 @@ class CytoscapeLeaflet {
     this.destroyToggleControl();
     this.resetCyConfig();
     this.removeListeners();
+  }
+
+  getNodeLatLng(n) {
+    const lat = this.options.latitude(n);
+    const lng = this.options.longitude(n);
+
+    return L.latLng(lat, lng);
   }
 
   createMap() {
@@ -191,7 +187,7 @@ class CytoscapeLeaflet {
   }
 
   setNodePosition(node) {
-    const latlng = getNodeLatLng(node);
+    const latlng = this.getNodeLatLng(node);
     const pt = this.map.latLngToContainerPoint(latlng);
     const { x, y } = pt;
 
@@ -264,9 +260,10 @@ class CytoscapeLeaflet {
 
   fit() {
     const { cy, map } = this;
+    const getGeo = n => this.getNodeLatLng(n);
 
     if (cy.nodes().nonempty()) {
-      const bounds = L.latLngBounds(cy.nodes().map(getNodeLatLng));
+      const bounds = L.latLngBounds(cy.nodes().map(getGeo));
 
       map.fitBounds(bounds, { padding: [50, 50] });
     }

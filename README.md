@@ -67,6 +67,8 @@ const someNodeJson = {
 
 Node positions are automatically updated when the viewport is modified (i.e. via zoom and/or pan) to correspond to their specified geographic coordinates.
 
+If you want to use use custom fields for geographic coordinates, you can set `options.latitude` and `options.longitude` accordingly.
+
 ### Instance creation
 
 To create an instance of the extension, call `cy.leaflet(options)`.  The following options are supported:
@@ -74,7 +76,13 @@ To create an instance of the extension, call `cy.leaflet(options)`.  The followi
 ```js
 const options = {
   // the container in which the map should live, should be a sibling of the cytoscape container
-  container: document.getElementById('cy-leaflet')
+  container: document.getElementById('cy-leaflet'),
+
+  // a getter function for the node's longitude value, uses `lat` by default
+  latitude: node => node.data('lat'),
+
+  // a getter function for the node's longitude value, uses `lng` by default
+  longitude: node => node.data('lng')
 };
 
 const leaf = cy.leaflet(options);
