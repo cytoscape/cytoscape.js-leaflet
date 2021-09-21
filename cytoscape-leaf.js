@@ -168,8 +168,12 @@ var CytoscapeLeaflet = function () {
   }, {
     key: 'getNodeLatLng',
     value: function getNodeLatLng(n) {
-      var lat = this.options.latitude(n);
-      var lng = this.options.longitude(n);
+      var LAT = this.options.latitude;
+      var LNG = this.options.longitude;
+
+      var data = n.data();
+      var lat = data[LAT];
+      var lng = data[LNG];
 
       return L.latLng(lat, lng);
     }
@@ -366,6 +370,9 @@ var CytoscapeLeaflet = function () {
       var latlng = this.map.containerPointToLatLng(pt);
       var llObj = {};
 
+      var LAT = this.options.latitude;
+      var LNG = this.options.longitude;
+
       llObj[LAT] = latlng.lat;
       llObj[LNG] = latlng.lng;
 
@@ -466,12 +473,8 @@ module.exports = CytoscapeLeaflet;
 
 module.exports = {
   container: undefined, // the container in which the map is put
-  latitude: function latitude(node) {
-    return node.data('lat');
-  }, // get latitude field, lat is leaflet convention
-  longitude: function longitude(node) {
-    return node.data('lng');
-  } // get longitude field, lng is leaflet convention
+  latitude: 'lat',
+  longitude: 'lng'
 };
 
 /***/ }),
