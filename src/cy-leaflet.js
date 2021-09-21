@@ -26,8 +26,12 @@ class CytoscapeLeaflet {
   }
 
   getNodeLatLng(n) {
-    const lat = this.options.latitude(n);
-    const lng = this.options.longitude(n);
+    const LAT = this.options.latitude;
+    const LNG = this.options.longitude;
+
+    const data = n.data();
+    const lat = data[LAT];
+    const lng = data[LNG];
 
     return L.latLng(lat, lng);
   }
@@ -199,6 +203,9 @@ class CytoscapeLeaflet {
     const pt = L.point(x, y);
     const latlng = this.map.containerPointToLatLng(pt);
     const llObj = {};
+
+    const LAT = this.options.latitude;
+    const LNG = this.options.longitude;
 
     llObj[LAT] = latlng.lat;
     llObj[LNG] = latlng.lng;

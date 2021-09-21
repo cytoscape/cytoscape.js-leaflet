@@ -78,11 +78,11 @@ const options = {
   // the container in which the map should live, should be a sibling of the cytoscape container
   container: document.getElementById('cy-leaflet'),
 
-  // a getter function for the node's longitude value, uses `lat` by default
-  latitude: node => node.data('lat'),
+  // the data field for latitude
+  latitude: 'lat',
 
-  // a getter function for the node's longitude value, uses `lng` by default
-  longitude: node => node.data('lng')
+  // the data field for longitude
+  longitude: 'lng'
 };
 
 const leaf = cy.leaflet(options);
