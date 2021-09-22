@@ -87,18 +87,18 @@ class CytoscapeLeaflet {
   }
 
   configureCy() {
-    this.orgZoomEnabled = this.cy.userZoomingEnabled();
-    this.orgPanningEnabled = this.cy.userPanningEnabled();
+    this.orgZoomEnabled = this.cy.zoomingEnabled();
+    this.orgPanningEnabled = this.cy.panningEnabled();
 
-    this.cy.userZoomingEnabled(false);
-    this.cy.userPanningEnabled(false);
+    this.cy.zoomingEnabled(false);
+    this.cy.panningEnabled(false);
 
     this.cy.container().style.pointerEvents = 'none';
   }
 
   resetCyConfig() {
-    this.cy.userZoomingEnabled(this.orgZoomEnabled);
-    this.cy.userPanningEnabled(this.orgPanningEnabled);
+    this.cy.zoomingEnabled(this.orgZoomEnabled);
+    this.cy.panningEnabled(this.orgPanningEnabled);
 
     this.cy.container().style.pointerEvents = '';
   }
@@ -107,8 +107,14 @@ class CytoscapeLeaflet {
     this.onViewport = () => {
       const cy = this.cy;
 
+      cy.zoomingEnabled(true);
+      cy.panningEnabled(true);
+
       cy.zoom(1);
       cy.pan({ x: 0, y: 0 });
+
+      cy.zoomingEnabled(false);
+      cy.panningEnabled(false);
 
       cy.nodes().forEach(node => this.setNodePosition(node));
     };
@@ -216,8 +222,14 @@ class CytoscapeLeaflet {
   onMapViewport() {
     const cy = this.cy;
     
+    cy.zoomingEnabled(true);
+    cy.panningEnabled(true);
+
     cy.zoom(1);
     cy.pan({ x: 0, y: 0 });
+
+    cy.zoomingEnabled(false);
+    cy.panningEnabled(false);
 
     cy.nodes().forEach(node => this.setNodePosition(node));
   }
