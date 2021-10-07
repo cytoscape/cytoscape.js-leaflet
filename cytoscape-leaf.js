@@ -286,6 +286,14 @@ var CytoscapeLeaflet = function () {
         _this.updateNodeGeo(node);
       };
 
+      this.updateNodePositionFromCyEvent = function (e) {
+        var ele = e.target;
+
+        if (ele.isNode()) {
+          _this.setNodePosition(ele);
+        }
+      };
+
       this.map.on('zoom', this.onViewport);
       this.map.on('move', this.onViewport);
 
@@ -313,13 +321,8 @@ var CytoscapeLeaflet = function () {
 
       this.cy.on('drag', this.onDrag);
 
-      this.cy.on('add', this.onAddElement = function (event) {
-        var ele = event.target;
-
-        if (ele.isNode()) {
-          _this.setNodePosition(ele);
-        }
-      });
+      this.cy.on('add', this.updateNodePositionFromCyEvent);
+      this.cy.on('data', this.updateNodePositionFromCyEvent);
 
       window.addEventListener('keyup', this.onToggleShortcut = function (event) {
         switch (event.keyCode) {
@@ -348,7 +351,8 @@ var CytoscapeLeaflet = function () {
 
       this.cy.removeListener('drag', this.onDrag);
 
-      this.cy.removeListener('add', this.onAddElement);
+      this.cy.removeListener('add', this.updateNodePositionFromCyEvent);
+      this.cy.removeListener('data', this.updateNodePositionFromCyEvent);
 
       window.renmoveEventListener('keyup', this.onToggleShortcut);
 
