@@ -188,14 +188,14 @@ class CytoscapeLeaflet {
     this.map.off('move', this.onViewport);
 
     this.panButton.removeEventListener('click', this.onEnablePan);
-    this.editButton.renmoveEventListener('click', this.onEnabledEdit);
+    this.editButton.removeEventListener('click', this.onEnabledEdit);
 
     this.cy.removeListener('drag', this.onDrag);
 
     this.cy.removeListener('add', this.updateNodePositionFromCyEvent);
     this.cy.removeListener('data', this.updateNodePositionFromCyEvent);
 
-    window.renmoveEventListener('keyup', this.onToggleShortcut);
+    window.removeEventListener('keyup', this.onToggleShortcut);
 
     this.cy.container().removeEventListener('wheel', this.onWheel);
   }
