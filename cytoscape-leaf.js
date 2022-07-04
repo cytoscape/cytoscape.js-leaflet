@@ -170,10 +170,22 @@ var CytoscapeLeaflet = function () {
     value: function getNodeLatLng(n) {
       var LAT = this.options.latitude;
       var LNG = this.options.longitude;
+      var lat = void 0;
+      var lng = void 0;
 
       var data = n.data();
-      var lat = data[LAT];
-      var lng = data[LNG];
+
+      if (typeof LAT === 'function') {
+        lat = LAT(data);
+      } else {
+        lat = data[LAT];
+      }
+
+      if (typeof LNG === 'function') {
+        lng = LNG(data);
+      } else {
+        lng = data[LNG];
+      }
 
       return L.latLng(lat, lng);
     }
