@@ -28,10 +28,23 @@ class CytoscapeLeaflet {
   getNodeLatLng(n) {
     const LAT = this.options.latitude;
     const LNG = this.options.longitude;
+    let lat;
+    let lng;
 
     const data = n.data();
-    const lat = data[LAT];
-    const lng = data[LNG];
+
+    if (typeof LAT === 'function') {
+      lat = LAT(data);
+    } else {
+      lat = data[LAT];
+    }
+
+    if (typeof LNG === 'function') {
+      lng = LNG(data);
+    }
+    else {
+      lng = data[LNG];
+    }
 
     return L.latLng(lat, lng);
   }

@@ -1,0 +1,191 @@
+<!DOCTYPE>
+
+<html>
+
+<head>
+	<title>cytoscape-leaflet.js demo</title>
+
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
+	<script src="https://unpkg.com/cytoscape/dist/cytoscape.min.js"></script>
+
+	<!-- for testing with local version of cytoscape.js -->
+	<!--<script src="../cytoscape.js/build/cytoscape.js"></script>-->
+
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+	<link rel="stylesheet" href="cytoscape-leaf.css" />
+  <script src="https://unpkg.com/leaflet@1.7.1"></script>
+	<script src="cytoscape-leaf.js"></script>
+
+	<style>
+		body {
+			font-family: helvetica neue, helvetica, liberation sans, arial, sans-serif;
+			font-size: 14px;
+		}
+
+		#cy,
+		#cy-leaflet {
+			position: absolute;
+			left: 0;
+			top: 0;
+			bottom: 0;
+			right: 0;
+			z-index: 1;
+		}
+
+		#cy-leaflet {
+			z-index: 0;
+		}
+
+		#add-node {
+			position: absolute;
+			left: 0;
+			top: 0;
+			margin: 0.5em;
+			z-index: 9999;
+		}
+
+		h1 {
+			opacity: 0.5;
+			font-size: 1em;
+			font-weight: bold;
+		}
+	</style>
+
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+
+			var cy = window.cy = cytoscape({
+				container: document.getElementById('cy'),
+
+				style: [
+					{
+						selector: 'core',
+						style: {
+							'active-bg-opacity': 0
+						}
+					},
+
+					{
+						selector: 'node',
+						style: {
+							'content': 'data(id)',
+							'background-color': 'yellow',
+							'width': 15,
+							'height': 15
+						}
+					},
+
+					{
+						selector: 'edge',
+						style: {
+							'curve-style': 'bezier',
+							'target-arrow-shape': 'triangle',
+							'line-color': 'yellow',
+							'target-arrow-color': 'yellow'
+						}
+					},
+
+					{
+						selector: ':selected',
+						style: {
+							'line-color': '#0056DA',
+							'target-arrow-color': '#0056DA',
+							'background-color': '#0056DA'
+						}
+					},
+
+					{
+						selector: 'node, edge',
+						style: {
+							'transition-property': 'opacity',
+							'transition-duration': '250ms',
+							'transition-timing-function': 'ease-in-out'
+						}
+					},
+
+					{
+						selector: '.leaflet-viewport',
+						style: {
+							'opacity': 0.333,
+							'transition-duration': '0ms',
+						}
+					}
+				],
+
+				elements: {
+					nodes: [
+						{ data: { id: 'a', special: { lat: 43.662402, lng: -79.388910 } } },
+						{ data: { id: 'b', special: { lat: 43.658560, lng: -79.384574 } } }
+					],
+					edges: [
+						{ data: { id: 'ab', source: 'a', target: 'b' } }
+					]
+				},
+
+				layout: {
+					name: 'preset',
+					fit: false
+				}
+			});
+
+			var leaf = cy.leaflet({
+				container: document.getElementById('cy-leaflet'),
+				latitude: function(data) {
+					console.log(data);
+					return data.special.lat;
+				},
+				longitude: function(data) {
+					return data.special.lng;
+				},
+			});
+
+			leaf.map.removeLayer(leaf.defaultTileLayer);
+
+			window.map = leaf.map;
+			window.L = L;
+
+			// set your own tiles, e.g. carto
+			L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}{r}.png', {
+				attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+				subdomains: 'abcd',
+				maxZoom: 19
+			}).addTo(leaf.map);
+
+			cy.on('click', e => {
+				console.log(e.position);
+				console.log(e.renderedPosition);
+				
+				const { x, y } = e.position;
+
+				// const ll = map.layerPointToLatLng(L.point([x, y]));
+				const ll = map.containerPointToLatLng(L.point([x, y]));
+
+				const { lat, lng } = ll;
+
+				console.log(e.position, ll);
+
+				cy.add({ data: { lat, lng } });
+			});
+
+			var i = 0;
+
+			document.getElementById('add-node').addEventListener('click', function(){
+				var a = Math.random() * 0.001;
+				var b = Math.random() * 0.001;
+				var id = String.fromCharCode('c'.charCodeAt(0) + i++);
+
+				cy.add({ data: { id: id, lat: 43.660 + a, lng: -79.3886 - b } });
+			});
+		});
+	</script>
+</head>
+
+<body>
+	<h1>cytoscape-leaflet demo</h1>
+	<div id="cy"></div>
+	<div id="cy-leaflet"></div>
+
+	<button id="add-node">Add node</button>
+</body>
+
+</html>

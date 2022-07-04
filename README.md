@@ -78,11 +78,15 @@ const options = {
   // the container in which the map should live, should be a sibling of the cytoscape container
   container: document.getElementById('cy-leaflet'),
 
-  // the data field for latitude
+  // the data field for latitude.and longitude.  Defaults to `lat` and `lng`
   latitude: 'lat',
+  longitude: 'lng',
 
-  // the data field for longitude
-  longitude: 'lng'
+  // Alternatively you can provide a function to compute the latitude/longitude.
+  // This function will be called with the node data object as its only argument.
+  // The function should return a value that can be passed to Leaflet.latLng().
+  latitude: (data) => data.lat,
+  longitude: (data) => data.lng,
 };
 
 const leaf = cy.leaflet(options);
