@@ -1,3 +1,7 @@
+.__________cytoscape_container {
+  z-index: 400;
+}
+
 .cy-leaflet-toggle {
   position: absolute;
   /* left: 0; */
